@@ -1,0 +1,18 @@
+body{
+    background-color: #FAF9F6
+
+}
+.Title{
+    text-align: center;
+}
+.Description{
+    text-align: center;
+    font-size: 16px
+}
+.SearchBar{
+    text-align: center;
+
+}
+.bookTitle{
+    text-align: left
+}
