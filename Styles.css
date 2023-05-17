@@ -1,18 +1,33 @@
 body{
     background-color: #FAF9F6
-
 }
 .Title{
     text-align: center;
 }
-.Description{
+.Menu-Options nav{
     text-align: center;
-    font-size: 16px
 }
-.SearchBar{
-    text-align: center;
-
+.Menu-Options nav ul ul{
+    display: none;
+    z-index: 99;
 }
-.bookTitle{
-    text-align: left
+.Menu-Options nav ul li:hover > ul{
+    display: block;
 }
+.Menu-Options nav ul{
+    list-style: none;
+    position: relative;
+    display: inline-table;
+}
+.Menu-Options nav ul:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.Menu-Options nav ul li{
+    float: inline-end;
+    z-index: 99;
+}
+.Menu-Options nav ul li:hover{
+    background-color: #FAF9F6;
+} 
