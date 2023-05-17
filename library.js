@@ -17,8 +17,13 @@ class httpLibrary{
     async put(destination, data){
         let response = await fetch(destination, {
                 method: 'PUT',
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify(data)
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify({
+                    userId: 1,
+                    id: 3,
+                    title: 'this is a test',
+                    body: 'this is a test'
+                })
             }
         );
 
