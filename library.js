@@ -15,7 +15,20 @@ class httpLibrary{
         //fix
     }
     async put(destination, data){
-        //fix
+        try {
+            let response = await fetch(destination, {
+                    method: 'PUT',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify(data)
+                }
+            );
+
+            let result = await response.json();
+            return result;
+        }
+        catch(error) {
+            throw new Error(`PUT request failed to ${endpoint} failed`);
+        }
     }
     async delete(destination){
         //fix
