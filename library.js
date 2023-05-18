@@ -19,5 +19,11 @@ class httpLibrary{
     }
     async delete(destination){
         //fix
-    }    
+    }
+    
+    DisplayAllBooks(destination){
+        const data = this.get(destination);
+        
+        //do something with data
+    }
 }
