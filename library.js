@@ -9,7 +9,8 @@ window.addEventListener("DOMContentLoaded", function () {
        .catch(err => ShowError(err));
     });
  });
-<<<<<<< HEAD
+
+ /*
 function ShowResponse(responseData){
     let html = "<ol style = 'list-style:none'/>";
     if(Array.isArray(responseData)){
@@ -19,8 +20,7 @@ function ShowResponse(responseData){
     }
     else{
         html += `<li>User ${responseData.id} -  ${responseData.body}</li>`
-=======
-
+*/
  window.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#putButton").addEventListener("click", function () {
        const topic = document.getElementById("searchInput").value;
@@ -29,14 +29,18 @@ function ShowResponse(responseData){
     });
  });
 
+ /*
 class httpLibrary{
     constructor(baseURL){
         this.baseURL = baseURL;
->>>>>>> f33927d379b1b258e7b2143c5edf55019597252b
     }
     document.getElementById("booksDisplay").innerHTML = html;
 }
+*/
 class httpLibrary{
+    constructor(baseURL){
+        this.baseURL = baseURL;
+    }
     async get(destination){
         const theRequest = new Promise((resolve,reject) => {
             const requestOption = {
