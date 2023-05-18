@@ -23,24 +23,9 @@ function ShowResponse(responseData){
 }
 class httpLibrary{
     async get(destination){
-        const theRequest = new Promise((resolve,reject) => {
-            const requestOption = {
-                method: "GET",
-                headers: {"content-type": "application\json"}
-            }
-            fetch(destination, requestOption)
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                else{
-                    throw new Error(response.status);
-                }
-            })
-            .then(responseData => resolve(responseData))
-            .catch(err => reject(err));
-        })   
-        return theRequest;
+        let response = await fetch(destination);
+        let books = await response.json();
+        return books;
     }
     async post(destination, data){
         //fix
