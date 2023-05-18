@@ -35,55 +35,64 @@ class httpLibrary{
         }
     }
     async delete(destination){
-        const deleteMethod = {
+        try{
+            const deleteMethod = {
             method: 'DELETE',
             headers: {"content-type": "application/json"}
-        };
-        fetch(destination, deleteMethod)
-        .then(response => {
-            if(response.ok){
-                return response.json();
             }
-            else{
-                throw new Error(response.status);
-            }
-        })   
+            let response = await fetch(destination, deleteMethod);
+            return response;
+        }
+        catch(exception){
+            console.log(exception.toString());
+        }
     }    
 }
 
-const newLibrary = new httpLibrary;
-window.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("searchButton").addEventListener("click", function () { // Get handler
-       // Get values from drop-downs
-       const topic = document.getElementById("searchInput").value;
-       // Get and display book
-       newLibrary.get(topic)
-       .then(responseData => ShowResponse(responseData))
-       .catch(err => ShowError(err));
-       
-    });
-    document.getElementById("deleteButton").addEventListener("click", function () { // Delete Handler
+const newLibrary = new httpLibrary();
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      document.getElementById('searchButton').addEventListener('click', async (event) => {
+        event.preventDefault();
         // Get values from drop-downs
-        const topic = document.getElementById("searchInput").value;
+        const topic = document.getElementById('searchInput').value;
         // Get and display book
-        newLibrary.get(topic)
-       .then(responseData => ShowResponse(responseData))
-       .catch(err => ShowError(err));
-        newLibrary.delete(topic, ProcessDelete);
-     });
- });
+        try {
+          const responseData = await newLibrary.get(topic);
+          ShowResponse(responseData);
+        } catch (err) {
+          ShowError(err);
+        }
+      });
+  
+      document.getElementById('deleteButton').addEventListener('click', async (event) => {
+        event.preventDefault();
+        // Get values from drop-downs
+        const topic = document.getElementById('searchInput').value;
+        // Get and display book
+        try {
+          const responseData = await newLibrary.delete(topic);
+          ProcessDelete(responseData);
+        } catch (err) {
+          ProcessDelete(err);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
-function ProcessDelete(err, res){
-    let output;
-    if (err) {
-        output = `<p>${err}</p>`;
+function ProcessDelete(res){
+    if(res.ok){
+        let output;
+        output = "<ul style=\"list-style:none\">";
+        output += `<li> Object Deleted</li>`;
+        output += "</ul>";
+        document.getElementById("booksDisplay").innerHTML = output;
     }
     else{
-        output = "<ul style=\"list-style:none\">";
-        output += `<li> ${res}</li>`;
-        output += "</ul>";
+        document.getElementById("booksDisplay").innerHTML = "Error In Deletion";
     }
-    document.getElementById("booksDisplay").innerHTML = output;
 }
 function ShowResponse(responseData){
     let html = "<ol style = 'list-style:none'/>";
