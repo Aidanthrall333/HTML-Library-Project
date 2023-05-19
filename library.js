@@ -1,8 +1,19 @@
 class httpLibrary{
     async get(destination){
-        let response = await fetch(destination);
-        let books = await response.json();
-        return books;
+        try{
+            let response = await fetch(destination);
+            let books = await response.json();
+            if(response.ok){
+                return books;
+            }
+            else{
+                document.getElementById("booksDisplay").innerHTML = "Error In Getting Data";
+            }
+        }
+        catch(error){
+            console.log(error.toString());
+        }
+        
     }
     async post(destination, data){
         //fix
@@ -49,8 +60,9 @@ const putData = {
 }
 //CHANGE THIS TO TEST PUT DATA
 
+/* Get Handler */
 window.addEventListener('DOMContentLoaded', async () => {
-    try {
+    /* Get Handler */
       document.getElementById('searchButton').addEventListener('click', async (event) => {
         event.preventDefault();
         // Get values from drop-downs
@@ -59,12 +71,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         try {
           const responseData = await newLibrary.get(topic);
           ShowResponse(responseData);
-        } catch (err) {
-          ShowError(err);
+        } catch {
+            document.getElementById("booksDisplay").innerHTML = "Error In Getting Data";
         }
       });
 
-      document.getElementById('putButton').addEventListener('click', async (event) => {
+      /* Put Handler */
+      document.getElementById('putButton').addEventListener('click', async (event) => { 
         event.preventDefault();
         // Get values from drop-downs
         const topic = document.getElementById('searchInput').value;
@@ -76,12 +89,13 @@ window.addEventListener('DOMContentLoaded', async () => {
           ProcessPut(err);
         }
       });
-  
+
+      /* Delete Handler */
       document.getElementById('deleteButton').addEventListener('click', async (event) => {
         event.preventDefault();
-        // Get values from drop-downs
+        // Get values from search
         const topic = document.getElementById('searchInput').value;
-        // Get and display book
+        // Delete book
         try {
           const responseData = await newLibrary.delete(topic);
           ProcessDelete(responseData);
@@ -89,9 +103,6 @@ window.addEventListener('DOMContentLoaded', async () => {
           ProcessDelete(err);
         }
       });
-    } catch (err) {
-      console.log(err);
-    }
 });
 
 function ProcessPut(response){
@@ -115,15 +126,15 @@ function ProcessDelete(res){
         document.getElementById("booksDisplay").innerHTML = "Error In Deletion";
     }
 }
-function ShowResponse(responseData){
+function ShowResponse(res){
     let html = "<ol style = 'list-style:none'/>";
-    if(Array.isArray(responseData)){
-        responseData.forEach(book => {
-            html += `<li>${book.id}. ${book.title}  -  ${book.body}</li>`;
+    if(Array.isArray(res)){
+         res.forEach(book => {
+             html += `<li>${book.id}. ${book.title}  -  ${book.body}</li>`;
         })
     }
     else{
-        html += `<li>${responseData.id}. ${responseData.title}  -  ${responseData.body}</li>`
-    }
+        html += `<li>${res.id}. ${res.title}  -  ${res.body}</li>`
+    }   
     document.getElementById("booksDisplay").innerHTML = html;
 }
