@@ -7,7 +7,7 @@ class httpLibrary{
     async post(destination, data){
         //fix
     }
-    async put(target){
+    async put(target, putData){
         try{
             const putMethod = {
                 method: 'PUT',
@@ -15,6 +15,10 @@ class httpLibrary{
                 body: JSON.stringify(putData)
             }
             let response = await fetch(target, putMethod);
+            //CONSOLE LOGGING PURPOSES
+            let data = await response.json();
+            console.log(data);
+            //CONSOLE LOGGING PURPOSES
             return response;
         }
         catch(exception){
@@ -40,8 +44,8 @@ const newLibrary = new httpLibrary();
 
 //CHANGE THIS TO TEST PUT DATA
 const putData = {
-    title: 'this is a test',
-    body: 'this is a test'
+  title: 'this is a test',
+  body: 'this is a test'
 }
 //CHANGE THIS TO TEST PUT DATA
 
@@ -66,7 +70,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const topic = document.getElementById('searchInput').value;
         // Get and put book
         try {
-          const responseData = await newLibrary.put(topic);
+          const responseData = await newLibrary.put(topic, putData);
           ProcessPut(responseData);
         } catch (err) {
           ProcessPut(err);
