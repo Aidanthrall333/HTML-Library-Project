@@ -10,17 +10,6 @@ window.addEventListener("DOMContentLoaded", function () {
     });
  });
 
- /*
-function ShowResponse(responseData){
-    let html = "<ol style = 'list-style:none'/>";
-    if(Array.isArray(responseData)){
-        responseData.forEach(book => {
-            html += `<li>${book.id}. ${book.title}  -  ${book.body}</li>`;
-        })
-    }
-    else{
-        html += `<li>User ${responseData.id} -  ${responseData.body}</li>`
-*/
  window.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#putButton").addEventListener("click", function () {
        const topic = document.getElementById("searchInput").value;
@@ -29,14 +18,6 @@ function ShowResponse(responseData){
     });
  });
 
- /*
-class httpLibrary{
-    constructor(baseURL){
-        this.baseURL = baseURL;
-    }
-    document.getElementById("booksDisplay").innerHTML = html;
-}
-*/
 class httpLibrary{
     constructor(baseURL){
         this.baseURL = baseURL;
