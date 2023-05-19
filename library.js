@@ -1,46 +1,8 @@
-window.addEventListener("DOMContentLoaded", function () {
-    newLibrary = new httpLibrary();
-    document.querySelector("#searchButton").addEventListener("click", function () {
-       // Get values from drop-downs
-       const topic = document.getElementById("searchInput").value;
-       // Get and display book
-       newLibrary.get(topic)
-       .then(responseData => ShowResponse(responseData))
-       .catch(err => ShowError(err));
-    });
- });
-
- window.addEventListener("DOMContentLoaded", function () {
-    document.querySelector("#putButton").addEventListener("click", function () {
-       const topic = document.getElementById("searchInput").value;
-       newLibrary = new httpLibrary("https://jsonplaceholder.typicode.com/posts");
-       newLibrary.put(topic);
-    });
- });
-
 class httpLibrary{
-    constructor(baseURL){
-        this.baseURL = baseURL;
-    }
     async get(destination){
-        const theRequest = new Promise((resolve,reject) => {
-            const requestOption = {
-                method: "GET",
-                headers: {"content-type": "application\json"}
-            }
-            fetch(destination, requestOption)
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                else{
-                    throw new Error(response.status);
-                }
-            })
-            .then(responseData => resolve(responseData))
-            .catch(err => reject(err));
-        })   
-        return theRequest;
+        let response = await fetch(destination);
+        let books = await response.json();
+        return books;
     }
     async post(destination, data){
         //fix
@@ -73,6 +35,74 @@ class httpLibrary{
         }
     }
     async delete(destination){
-        //fix
+        try{
+            const deleteMethod = {
+            method: 'DELETE',
+            headers: {"content-type": "application/json"}
+            }
+            let response = await fetch(destination, deleteMethod);
+            return response;
+        }
+        catch(exception){
+            console.log(exception.toString());
+        }
     }    
+}
+
+const newLibrary = new httpLibrary();
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      document.getElementById('searchButton').addEventListener('click', async (event) => {
+        event.preventDefault();
+        // Get values from drop-downs
+        const topic = document.getElementById('searchInput').value;
+        // Get and display book
+        try {
+          const responseData = await newLibrary.get(topic);
+          ShowResponse(responseData);
+        } catch (err) {
+          ShowError(err);
+        }
+      });
+  
+      document.getElementById('deleteButton').addEventListener('click', async (event) => {
+        event.preventDefault();
+        // Get values from drop-downs
+        const topic = document.getElementById('searchInput').value;
+        // Get and display book
+        try {
+          const responseData = await newLibrary.delete(topic);
+          ProcessDelete(responseData);
+        } catch (err) {
+          ProcessDelete(err);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+function ProcessDelete(res){
+    if(res.ok){
+        let output;
+        output = "<ul style=\"list-style:none\">";
+        output += `<li> Object Deleted</li>`;
+        output += "</ul>";
+        document.getElementById("booksDisplay").innerHTML = output;
+    }
+    else{
+        document.getElementById("booksDisplay").innerHTML = "Error In Deletion";
+    }
+}
+function ShowResponse(responseData){
+    let html = "<ol style = 'list-style:none'/>";
+    if(Array.isArray(responseData)){
+        responseData.forEach(book => {
+            html += `<li>${book.id}. ${book.title}  -  ${book.body}</li>`;
+        })
+    }
+    else{
+        html += `<li>${responseData.id}. ${responseData.title}  -  ${responseData.body}</li>`
+    }
+    document.getElementById("booksDisplay").innerHTML = html;
 }
