@@ -7,31 +7,18 @@ class httpLibrary{
     async post(destination, data){
         //fix
     }
-    //(destination, data)
     async put(target){
         try{
-            let response = await fetch(this.baseURL);
-            let data = await response.json();
-
-            let html = '<ul>';
-            for(let line of data) {
-                if(line.title === target) {
-                    line.title = 'this is a test';
-                    line.body = 'this is a test';
-                    console.log(line);
-
-                    html += '<li>' + line.userId + '</li>' + '<li>' + line.id + '</li>' 
-                    + '<li>' + line.title + '</li>' + '<li>' + line.body + '</li>';
-                }
+            const putMethod = {
+                method: 'PUT',
+                headers: {"content-type": "application/json"},
+                body: JSON.stringify(putData)
             }
-            html += '</ul>';
-            
-            document.getElementById("booksDisplay").innerHTML = html;
-            return data;
+            let response = await fetch(target, putMethod);
+            return response;
         }
-        catch(error) {
-            document.getElementById("booksDisplay").innerHTML = "Topic '" + destination + "' not found";
-            throw new Error(`PUT request failed to ${endpoint} failed`);
+        catch(exception){
+            console.log(exception.toString());
         }
     }
     async delete(destination){
@@ -46,10 +33,18 @@ class httpLibrary{
         catch(exception){
             console.log(exception.toString());
         }
-    }    
+    }
 }
 
 const newLibrary = new httpLibrary();
+
+//CHANGE THIS TO TEST PUT DATA
+const putData = {
+    title: 'this is a test',
+    body: 'this is a test'
+}
+//CHANGE THIS TO TEST PUT DATA
+
 window.addEventListener('DOMContentLoaded', async () => {
     try {
       document.getElementById('searchButton').addEventListener('click', async (event) => {
@@ -62,6 +57,19 @@ window.addEventListener('DOMContentLoaded', async () => {
           ShowResponse(responseData);
         } catch (err) {
           ShowError(err);
+        }
+      });
+
+      document.getElementById('putButton').addEventListener('click', async (event) => {
+        event.preventDefault();
+        // Get values from drop-downs
+        const topic = document.getElementById('searchInput').value;
+        // Get and put book
+        try {
+          const responseData = await newLibrary.put(topic);
+          ProcessPut(responseData);
+        } catch (err) {
+          ProcessPut(err);
         }
       });
   
@@ -80,8 +88,17 @@ window.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
       console.log(err);
     }
-  });
+});
 
+function ProcessPut(response){
+    if(response.ok) {
+        let output = '<h1>Object Put</h1>';
+        document.getElementById("booksDisplay").innerHTML = output;
+    }
+    else{
+        document.getElementById("booksDisplay").innerHTML = "Error In Putting";
+    }
+}
 function ProcessDelete(res){
     if(res.ok){
         let output;
