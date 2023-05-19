@@ -41,14 +41,6 @@ class httpLibrary{
 }
 
 const newLibrary = new httpLibrary();
-
-//CHANGE THIS TO TEST PUT DATA
-const putData = {
-  title: 'this is a test',
-  body: 'this is a test'
-}
-//CHANGE THIS TO TEST PUT DATA
-
 window.addEventListener('DOMContentLoaded', async () => {
     try {
       document.getElementById('searchButton').addEventListener('click', async (event) => {
@@ -68,6 +60,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         // Get values from drop-downs
         const topic = document.getElementById('searchInput').value;
+        const titleData = document.getElementById('titleInput').value;
+        const bodyData = document.getElementById('bodyInput').value;
+
+        //CHANGE THIS TO TEST PUT DATA
+        const putData = {
+          title: titleData,
+          body: bodyData
+        }
+        //CHANGE THIS TO TEST PUT DATA
+
         // Get and put book
         try {
           const responseData = await newLibrary.put(topic, putData);
