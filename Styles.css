@@ -4,6 +4,20 @@ body{
 }
 .Title{
     text-align: center;
+    margin-right: 20px;
+
+}
+.Header{
+    margin:auto;
+    display:flex;
+    width: 50%;
+    text-align: center;
+}
+.HeaderChild{
+    text-align: center;
+    flex:1;
+    border: 2px solid blue;
+    margin: 10px;
 }
 .Description{
     text-align: center;
