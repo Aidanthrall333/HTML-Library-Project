@@ -23,10 +23,8 @@ class httpLibrary{
                 body: JSON.stringify(putData)
             }
             let response = await fetch(target, putMethod);
-            //CONSOLE LOGGING PURPOSES
             let data = await response.json();
             console.log(data);
-            //CONSOLE LOGGING PURPOSES
             return response;
         }
         catch(exception){
@@ -104,7 +102,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 function ProcessPut(response){
     if(response.ok) {
-        let output = '<h1>Object Put</h1>';
+        let output = 'Object Put';
         document.getElementById("booksDisplay").innerHTML = output;
     }
     else{
@@ -114,9 +112,7 @@ function ProcessPut(response){
 function ProcessDelete(res){
     if(res.ok){
         let output;
-        output = "<ul style=\"list-style:none\">";
-        output += `<li> Object Deleted</li>`;
-        output += "</ul>";
+        output = `Object Deleted`;
         document.getElementById("booksDisplay").innerHTML = output;
     }
     else{
