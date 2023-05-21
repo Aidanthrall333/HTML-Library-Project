@@ -88,17 +88,17 @@ window.addEventListener('DOMContentLoaded', async () => {
         const titleData = document.getElementById('titleInput').value;
         const bodyData = document.getElementById('bodyInput').value;
 
-        const postData = {
+        const postData = { // contents that are to be added
             title: titleData,
             body: bodyData
         }
         // display post
         try {
-            const responseData = await newLibrary.post(topic, postData);
-            ShowResponse(responseData);
+            const responseData = await newLibrary.post(topic, postData); 
+            ProcessPost(responseData);
         }
-        catch {
-            document.getElementById("booksDisplay").innerHTML = "Error In Posting Data";
+        catch (err) {
+            ProcessPost(err);
         }
       })
 
@@ -162,6 +162,23 @@ function ProcessDelete(res){
         document.getElementById("booksDisplay").innerHTML = "Error In Deletion";
     }
 }
+function ProcessPost(response) {
+    if (response.ok) {
+        let output;
+        output = "<ul style=\"list-style:none\">";
+    
+        // this would display specifics of what is added if server could handle it
+        // output += `<li>${response.title} - ${response.body}</li>`; 
+    
+        output += `<li> Book Posted </li>`; // use this to show if book is actually added 
+        output += "</ul>";
+        document.getElementById("booksDisplay").innerHTML = output;
+    }
+    else{
+        document.getElementById("booksDisplay").innerHTML = "Error in Posting";
+    }
+}
+
 function ShowResponse(res){
     let html = "<ol style = 'list-style:none'/>";
     if(Array.isArray(res)){

@@ -1,44 +1,53 @@
-body{
-    background-color: #FAF9F6
 
+body{
+    background-color: #6F4E37;
+    justify-content: center;
+    align-items: center;
 }
 .Title{
     flex:1;
     text-align: center;
     margin-right: 20px;
-
 }
 .Header {
-    background-color: #333;
-    color: #fff;
+    background-color: #6F4E37;
+    color: #FFCB9C;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    height: 500px;
   }
 .HeaderChild{
-    text-align: center;
+    justify-content: center;
+    align-items: center;
     margin: 10px;
+    padding: 10;
+}
+hr{
+    background-color: #FFCB9C;
+    height: 2px;
+    border: none;
+}
+h2{
+  color: #FFCB9C;
 }
 .Description{
     text-align: center;
     font-size: 16px
 }
 .SearchBar{
-    flex: 1;
-    margin-left: 20px;
-    gap: 10px;
-    margin-top: 10px;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .Response {
     display: flex;
     align-items: center;
-}
-  
+} 
 .Response span {
     flex: 1;
-}
-  
+} 
 .Response hr {
     flex-grow: 1;
     margin-left: 10px;
@@ -48,6 +57,14 @@ body{
 }
 .booksDisplay{
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    color: #FFCB9C;
+    font-size: 18px;
+    line-height: 1.5;
 }
 
 #searchInput,
@@ -58,45 +75,34 @@ body{
     flex:auto;
     padding: 5px;
     width: 300px;
+    border-radius: 10px;
 }
 
-.searchButton{
-    border-radius: 5px;
+button{
+    margin-top: 5px;
+    margin-inline: 2px;
+    border-radius: 20px;
     transition-duration: 0.4s;
     font-size: 15px;
+    padding: 5px;
 }
 .searchButton:hover {
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: rgb(31, 45, 92);
     color: white;
 }
-.deleteButton{
-    border-radius: 5px;
-    transition-duration: 0.4s;
-    font-size: 15px;
-}
 .deleteButton:hover {
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: red;
     color: white;
 }
-.putButton{
-    border-radius: 5px;
-    transition-duration: 0.4s;
-    font-size: 15px;
-}
 .putButton:hover {
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: green;
     color: white;
 }
-.postButton{
-    border-radius: 5px;
-    transition-duration: 0.4s;
-    font-size: 15px;
-}
 .postButton:hover {
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: palevioletred;
     color: white;
 }
