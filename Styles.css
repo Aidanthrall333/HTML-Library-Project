@@ -3,15 +3,45 @@ body{
 
 }
 .Title{
+    flex:1;
     text-align: center;
+    margin-right: 20px;
+
+}
+.Header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.HeaderChild{
+    text-align: center;
+    margin: 10px;
 }
 .Description{
     text-align: center;
     font-size: 16px
 }
 .SearchBar{
-    text-align: center;
-
+    flex: 1;
+    margin-left: 20px;
+    gap: 10px;
+    margin-top: 10px;
+    text-align: left;
+}
+.Response {
+    display: flex;
+    align-items: center;
+}
+  
+.Response span {
+    flex: 1;
+}
+  
+.Response hr {
+    flex-grow: 1;
+    margin-left: 10px;
 }
 .bookTitle{
     text-align: left
@@ -65,7 +95,7 @@ body{
     transition-duration: 0.4s;
     font-size: 15px;
 }
-.postButton:hover{
+.postButton:hover {
     border-radius: 5px;
     background-color: palevioletred;
     color: white;
