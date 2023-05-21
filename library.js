@@ -13,7 +13,20 @@ class httpLibrary{
         
     }
     async post(destination, data){
-        //fix
+        try {
+            const postMethod = {
+                method: 'POST',
+                headers : {"content-type" : "application/json"},
+                body: JSON.stringify(data)
+            }
+            let response = await fetch(destination, postMethod);
+            let postData = await response.json();
+            console.log(postData);
+            return response;
+        }
+        catch(exception) {
+            console.log(exception.toString());
+        }
     }
     async put(target, putData){
         try{
@@ -70,6 +83,27 @@ window.addEventListener('DOMContentLoaded', async () => {
             document.getElementById("booksDisplay").innerHTML = "Error In Getting Data";
         }
       });
+      /* Post Handler */
+      document.getElementById('postButton').addEventListener('click', async (event)=> {
+        event.preventDefault();
+        // Get values from search
+        const topic = document.getElementById('searchInput').value;
+        const titleData = document.getElementById('titleInput').value;
+        const bodyData = document.getElementById('bodyInput').value;
+
+        const postData = {
+            title: titleData,
+            body: bodyData
+        }
+        // display post
+        try {
+            const responseData = await newLibrary.post(topic, postData);
+            ShowResponse(responseData);
+        }
+        catch {
+            document.getElementById("booksDisplay").innerHTML = "Error In Posting Data";
+        }
+      })
 
       /* Put Handler */
       document.getElementById('putButton').addEventListener('click', async (event) => { 
