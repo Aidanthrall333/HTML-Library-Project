@@ -9,22 +9,34 @@
     <script src="library.js"></script>
 </head>
 <body>
-    <header>
-        <h1 class="Title">Title</h1>
+    <header class = "Header">
+        <div class = "HeaderChild">
+            <h1 class="Title">HTTP Library</h1>
+            <pre class="Description">Search for the book you want here!</pre>
+            <img class = "Img" src="https://foodtank.com/wp-content/uploads/2021/07/alfons-morales-YLSwjSy7stw-unsplash.jpg" alt="book" style="width:300px;height:150px;left:500px" > 
+        </div>
+        <form class="SearchBar" id="searchForm" action="#">
+            <div>
+                <input type="text" placeholder="Input Website URL" name="search" id="searchInput" size = "50">
+                <button class = "searchButton" type="submit" id="searchButton">Get</button>
+                <button class = "deleteButton" type="submit" id="deleteButton">Delete</button>
+            </div>
+            <div>
+                <input type="text" placeholder="Use this to change a book title" name="search" id="titleInput" size = "50">
+                <input type="text" placeholder="Use this to change a book body" name="search" id="bodyInput" size = "50">
+                <button class = "putButton" type="submit" id="putButton">Put</button>
+                <button class = "postButton" type="submit" id="postButton">Post</button>
+            </div>
+            <div>
+            </div>
+        </form>
     </header>
-    <pre class="Description">Search for the book you want here!</pre>
-    <form class="SearchBar" id="searchForm" action="#">
-        <input type="text" placeholder="Input Website URL" name="search" id="searchInput" size = "50">
-        <div>
-            <input type="text" placeholder="Use this to change a book title" name="search" id="titleInput" size = "50">
-        </div>
-        <div>
-            <input type="text" placeholder="Use this to change a book body" name="search" id="bodyInput" size = "50">
-        </div>
-        <button type="submit" id="searchButton">Get</button>
-        <button type="submit" id="putButton">Put</button>
-        <button type="submit" id="deleteButton">Delete</button>
-    </form>
-    <div class="booksDisplay" id="booksDisplay"></div>
+    <div class = "booksDisplay">
+        <span>HTTP Library Response</span> 
+        <hr>
+    </div>
+    <div class="booksDisplay" id="booksDisplay">
+    </div>
+    
 </body>
 </html>
