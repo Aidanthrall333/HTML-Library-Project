@@ -36,8 +36,10 @@ class httpLibrary{
                 body: JSON.stringify(putData)
             }
             let response = await fetch(target, putMethod);
+            //CONSOLE LOGGING PURPOSES
             let data = await response.json();
             console.log(data);
+            //CONSOLE LOGGING PURPOSES
             return response;
         }
         catch(exception){
@@ -60,15 +62,6 @@ class httpLibrary{
 }
 
 const newLibrary = new httpLibrary();
-
-//CHANGE THIS TO TEST PUT DATA
-const putData = {
-  title: 'this is a test',
-  body: 'this is a test'
-}
-//CHANGE THIS TO TEST PUT DATA
-
-/* Get Handler */
 window.addEventListener('DOMContentLoaded', async () => {
     /* Get Handler */
       document.getElementById('searchButton').addEventListener('click', async (event) => {
@@ -111,6 +104,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         // Get values from drop-downs
         const topic = document.getElementById('searchInput').value;
+        const titleData = document.getElementById('titleInput').value;
+        const bodyData = document.getElementById('bodyInput').value;
+
+        //CHANGE THIS TO TEST PUT DATA
+        const putData = {
+          title: titleData,
+          body: bodyData
+        }
+        //CHANGE THIS TO TEST PUT DATA
+
         // Get and put book
         try {
           const responseData = await newLibrary.put(topic, putData);
