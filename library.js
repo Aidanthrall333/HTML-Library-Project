@@ -143,7 +143,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 function ProcessPut(response){
     if(response.ok) {
-        let output = '<h1>Object Put</h1>';
+        let output = '<ul style=\"list-style:none\"> <li>Object Put</li> </ul>';
+        //let output = '<h1>Object Put</h1>';
         document.getElementById("booksDisplay").innerHTML = output;
     }
     else{
@@ -154,7 +155,7 @@ function ProcessDelete(res){
     if(res.ok){
         let output;
         output = "<ul style=\"list-style:none\">";
-        output += `<li> Object Deleted</li>`;
+        output += `<li>Object Deleted</li>`;
         output += "</ul>";
         document.getElementById("booksDisplay").innerHTML = output;
     }
